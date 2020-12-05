@@ -173,6 +173,7 @@
 				D848D4952568190F008CA221 /* Frameworks */,
 				D848D4962568190F008CA221 /* Resources */,
 				C9B6C269DFF18689B7B64650 /* [CP] Embed Pods Frameworks */,
+				D85E1983257B61AE00B040F2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -298,6 +299,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CtaReactiveMaster/Pods-CtaReactiveMaster-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		D85E1983257B61AE00B040F2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which mint >/dev/null; then\n  mint run swiftlint\n  mint run swiftformat\nelse\n  echo \"warning: Mintがインストールされていません。こちらからダウンロードしてください https://github.com/yonaskolb/Mint\"\nfi\n";
 		};
 		DAF3F50D7173C3BAAADB89E9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

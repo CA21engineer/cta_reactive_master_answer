@@ -7,7 +7,13 @@ CA Tech AccelでiOSアプリ開発におけるReactiveを理解していく学�
 以下のコマンドを叩くことで依存しているライブラリをインストールする
 
 ```
-make setup
+$ make setup
+```
+
+## パッケージインストール
+
+```
+$ mint bootstrap
 ```
 
 ## Getting Started

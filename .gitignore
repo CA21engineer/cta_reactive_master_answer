@@ -11,3 +11,6 @@ xcuserdata
 # Bundler
 .bundle/
 vendor/
+
+# APIKey
+*/Resources/Apikey.plist

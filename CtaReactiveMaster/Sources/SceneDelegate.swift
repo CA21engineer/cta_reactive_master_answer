@@ -20,7 +20,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
             let window = UIWindow(windowScene: windowScene)
             self.window = window
-            window.rootViewController = HomeViewController(nibName: nil, bundle: nil)
+            let apiClient = APIClient()
+            window.rootViewController = HomeViewController(apiClient: apiClient)
             window.makeKeyAndVisible()
     }
 
@@ -53,4 +54,3 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
 }
-

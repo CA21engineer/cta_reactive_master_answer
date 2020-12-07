@@ -6,36 +6,37 @@
 //
 
 import Foundation
+import RxSwift
 
-public class APIClient: NSObject {
-    func request<T: Requestable>(_ requestable: T, completion: @escaping(Result<T.Model?, NewsAPIError>) -> Void) {
-        guard let request = requestable.urlRequest else { return }
-        let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-            if let error = error {
-                completion(.failure(NewsAPIError.unknown(error)))
+struct APIClient {
+    func request<T: Requestable>(_ requestable: T) -> Single<T.Model> {
+        guard let request = requestable.urlRequest else {
+            return Single.error(NewsAPIError.requestNotFound)
+        }
+        return Single<T.Model>.create { single in
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    single(.error(NewsAPIError.unknown(error)))
+                } else if let data = data, response != nil {
+                    do {
+                        let model = try requestable.decode(from: data)
+                        single(.success(model))
+                    } catch {
+                        single(.error(NewsAPIError.decode(error)))
+                    }
+                } else {
+                    single(.error(NewsAPIError.noResponse))
+                }
             }
-            guard let data = data, let _ = response else {
-                completion(.failure(NewsAPIError.noResponse))
-                return
-            }
-            do {
-                let model = try? requestable.decode(from: data)
-                completion(.success(model))
-            } catch let decodeError {
-                completion(.failure(NewsAPIError.decode(decodeError)))
-            }
-        })
-        task.resume()
+            task.resume()
+            return Disposables.create()
+        }
     }
 }
 
-public enum Result<Value, Error> {
-    case success(Value)
-    case failure(Error)
-}
-
-public enum NewsAPIError: Error {
+enum NewsAPIError: Error {
     case decode(Error)
     case noResponse
     case unknown(Error)
+    case requestNotFound
 }

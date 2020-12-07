@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		82796DEF2569247500443E2F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82796DED2569247500443E2F /* HomeViewController.swift */; };
 		82796DF02569247500443E2F /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82796DEE2569247500443E2F /* HomeViewController.xib */; };
+		8297DBEF257E7A9400EC7790 /* APIKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8297DBEE257E7A9400EC7790 /* APIKey.plist */; };
 		D848D49C2568190F008CA221 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D848D49B2568190F008CA221 /* AppDelegate.swift */; };
 		D848D49E2568190F008CA221 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D848D49D2568190F008CA221 /* SceneDelegate.swift */; };
 		D848D4A525681910008CA221 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D848D4A425681910008CA221 /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 		705E3A12E8A77B5A88182FE7 /* Pods_CtaReactiveMasterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CtaReactiveMasterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82796DED2569247500443E2F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		82796DEE2569247500443E2F /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		8297DBEE257E7A9400EC7790 /* APIKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKey.plist; sourceTree = "<group>"; };
 		82F66DCE1A668CAA1224DAFF /* Pods-CtaReactiveMaster-CtaReactiveMasterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CtaReactiveMaster-CtaReactiveMasterUITests.debug.xcconfig"; path = "Target Support Files/Pods-CtaReactiveMaster-CtaReactiveMasterUITests/Pods-CtaReactiveMaster-CtaReactiveMasterUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9809336D5959AFBA85CE0F49 /* Pods-CtaReactiveMaster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CtaReactiveMaster.release.xcconfig"; path = "Target Support Files/Pods-CtaReactiveMaster/Pods-CtaReactiveMaster.release.xcconfig"; sourceTree = "<group>"; };
 		B9F141820D3B6ADF8624D76B /* Pods-CtaReactiveMaster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CtaReactiveMaster.debug.xcconfig"; path = "Target Support Files/Pods-CtaReactiveMaster/Pods-CtaReactiveMaster.debug.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				D848D4A425681910008CA221 /* Assets.xcassets */,
 				D848D4A925681910008CA221 /* Info.plist */,
 				D848D4A625681910008CA221 /* LaunchScreen.storyboard */,
+				8297DBEE257E7A9400EC7790 /* APIKey.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				D848D4A825681910008CA221 /* LaunchScreen.storyboard in Resources */,
 				D85E19B0257B837800B040F2 /* ArticleTableViewCell.xib in Resources */,
 				D848D4A525681910008CA221 /* Assets.xcassets in Resources */,
+				8297DBEF257E7A9400EC7790 /* APIKey.plist in Resources */,
 				82796DF02569247500443E2F /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

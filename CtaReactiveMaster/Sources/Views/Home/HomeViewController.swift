@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class HomeViewController: UIViewController {
 
@@ -18,8 +19,9 @@ final class HomeViewController: UIViewController {
         }
     }
 
-    private var articles: [NewsSource.Article] = .init()
-    private var apiClient = APIClient()
+    private var articles: [NewsSource.Article] = []
+    private let disposeBag = DisposeBag()
+    private let apiClient: APIClient
 
     init(apiClient: APIClient) {
         self.apiClient = apiClient
@@ -33,25 +35,15 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let request = NewsAPIRequest(country: .jp, category: .technology)
-        apiClient.request(request, completion: { result in
-            switch result {
-            case let .success(model):
-                guard let model = model else { return }
-                self.articles = model.articles ?? .init()
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            case let .failure(error):
-                switch error {
-                    case .noResponse:
-                        print("Error!! No Response")
-                    case let .unknown(error):
-                        print("Error!! Unknown: \(error)")
-                    default:
-                        print("Error!! \(error)")
-                }
+        apiClient.request(request)
+            .observeOn(MainScheduler.instance)
+            .subscribe { [weak self] result in
+                self?.articles = result.articles ?? []
+                self?.tableView.reloadData()
+            } onError: { error in
+                print(error)
             }
-        })
+            .disposed(by: disposeBag)
     }
 }
 

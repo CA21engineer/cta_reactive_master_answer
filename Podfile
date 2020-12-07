@@ -4,6 +4,8 @@ target 'CtaReactiveMaster' do
   use_frameworks!
 
   pod 'Nuke'
+  pod 'RxSwift'
+  pod 'RxCocoa'
 
   target 'CtaReactiveMasterTests' do
     inherit! :search_paths

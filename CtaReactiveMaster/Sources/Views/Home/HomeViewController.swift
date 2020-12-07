@@ -13,12 +13,12 @@ final class HomeViewController: UIViewController {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
+            tableView.register(UINib(nibName: "ArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "ArticleTableViewCell")
+            tableView.rowHeight = 128
         }
     }
 
     private var articles: [NewsSource.Article] = .init()
-//    private var newsSource: NewsSource
     private var apiClient = APIClient()
 
     init(apiClient: APIClient) {
@@ -31,28 +31,38 @@ final class HomeViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-        let request = NewsAPIRequest(country: .jp, category: .technology)
         super.viewDidLoad()
+        let request = NewsAPIRequest(country: .jp, category: .technology)
         apiClient.request(request, completion: { result in
-            dump(result)
-//            switch result {
-//            case .success(let headlines): break
-//                //
-//            case .failure(let error): break
-//                //
+            switch result {
+            case let .success(model):
+                guard let model = model else { return }
+                self.articles = model.articles ?? .init()
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case let .failure(error):
+                switch error {
+                    case .noResponse:
+                        print("Error!! No Response")
+                    case let .unknown(error):
+                        print("Error!! Unknown: \(error)")
+                    default:
+                        print("Error!! \(error)")
+                }
             }
-        )
+        })
     }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        articles.count
+        self.articles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
-        cell.textLabel?.text = articles[indexPath.row].title
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleTableViewCell", for: indexPath) as! ArticleTableViewCell
+        cell.setup(articles: articles[indexPath.row])
         return cell
     }
 }

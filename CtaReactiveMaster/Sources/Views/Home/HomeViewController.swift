@@ -58,7 +58,7 @@ final class HomeViewController: UIViewController {
                 guard let self = self else { return }
                 self.articles = result.articles ?? []
                 self.tableView.reloadData()
-                if self.refreshControl.isRefreshing == true {
+                if self.refreshControl.isRefreshing {
                     self.refreshControl.endRefreshing()
                 }
             } onError: { error in

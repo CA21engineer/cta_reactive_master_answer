@@ -47,7 +47,6 @@ final class HomeViewController: UIViewController {
                 self?.fetch()
             }
             .disposed(by: disposeBag)
-
     }
 
     private func fetch() {

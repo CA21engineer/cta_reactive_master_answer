@@ -37,19 +37,19 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetch()
+        fetchNewsAPI()
 
         refreshControl
             .rx
             .controlEvent(.valueChanged)
             .asDriver()
             .drive { [weak self] _ in
-                self?.fetch()
+                self?.fetchNewsAPI()
             }
             .disposed(by: disposeBag)
     }
 
-    private func fetch() {
+    private func fetchNewsAPI() {
         let request = NewsAPIRequest(country: .jp, category: .technology)
         apiClient.request(request)
             .subscribeOn(SerialDispatchQueueScheduler(qos: .background))

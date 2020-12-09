@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 final class HomeViewController: UIViewController {
 
@@ -16,11 +17,13 @@ final class HomeViewController: UIViewController {
             tableView.dataSource = self
             tableView.register(UINib(nibName: "ArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "ArticleTableViewCell")
             tableView.rowHeight = 128
+            tableView.refreshControl = refreshControl
         }
     }
 
     private var articles: [NewsSource.Article] = []
     private let disposeBag = DisposeBag()
+    private let refreshControl = UIRefreshControl()
     private let apiClient: APIClient
 
     init(apiClient: APIClient) {
@@ -34,12 +37,30 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchNewsAPI()
+
+        refreshControl
+            .rx
+            .controlEvent(.valueChanged)
+            .asDriver()
+            .drive { [weak self] _ in
+                self?.fetchNewsAPI()
+            }
+            .disposed(by: disposeBag)
+    }
+
+    private func fetchNewsAPI() {
         let request = NewsAPIRequest(country: .jp, category: .technology)
         apiClient.request(request)
+            .subscribeOn(SerialDispatchQueueScheduler(qos: .background))
             .observeOn(MainScheduler.instance)
             .subscribe { [weak self] result in
-                self?.articles = result.articles ?? []
-                self?.tableView.reloadData()
+                guard let self = self else { return }
+                self.articles = result.articles ?? []
+                self.tableView.reloadData()
+                if self.refreshControl.isRefreshing {
+                    self.refreshControl.endRefreshing()
+                }
             } onError: { error in
                 print(error)
             }

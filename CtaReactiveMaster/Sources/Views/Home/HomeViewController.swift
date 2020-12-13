@@ -35,7 +35,7 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         let request = NewsAPIRequest(country: .jp, category: .technology)
         let decoder = NewsAPIDecoder()
-        apiClient.request(request, decoder, completion: { result in
+        apiClient.request(request, decoder) { result in
             switch result {
             case let .success(model):
                 self.articles = model.articles ?? .init()
@@ -52,7 +52,7 @@ final class HomeViewController: UIViewController {
                     print("Error!! Unknown: \(error)")
                 }
             }
-        })
+        }
     }
 }
 

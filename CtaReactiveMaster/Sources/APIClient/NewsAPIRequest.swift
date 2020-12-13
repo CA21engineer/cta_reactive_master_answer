@@ -12,6 +12,10 @@ struct NewsAPIRequest: Requestable {
     
     private let country: Country
     private let category: Category
+    
+    var url: URL {
+        topHeadlinesURL()
+    }
 
     init(country: Country, category: Category) {
         self.country = country
@@ -41,10 +45,6 @@ struct NewsAPIRequest: Requestable {
                               ]
         guard let requestURL = baseURL?.url else { return URL(string: "https")! }
         return requestURL
-    }
-
-    var url: URL {
-        return topHeadlinesURL()
     }
 
     func decode(from data: Data) throws -> NewsSource {

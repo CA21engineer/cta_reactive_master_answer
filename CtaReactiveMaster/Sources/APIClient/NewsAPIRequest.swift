@@ -10,8 +10,8 @@ import Foundation
 struct NewsAPIRequest: Requestable {
     typealias Model = NewsSource
     
-    let country: Country
-    let category: Category
+    private let country: Country
+    private let category: Category
 
     init(country: Country, category: Category) {
         self.country = country

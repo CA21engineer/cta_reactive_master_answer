@@ -36,7 +36,6 @@ final class HomeViewController: UIViewController {
         apiClient.request(request, completion: { result in
             switch result {
             case let .success(model):
-                guard let model = model else { return }
                 self.articles = model.articles ?? .init()
                 DispatchQueue.main.async {
                     self.tableView.reloadData()

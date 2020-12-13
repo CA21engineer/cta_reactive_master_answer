@@ -7,19 +7,19 @@
 
 import Foundation
 
-public class APIClient: NSObject {
-    func request<T: Requestable>(_ requestable: T, completion: @escaping(Result<T.Model?, NewsAPIError>) -> Void) {
+struct APIClient {
+    func request<T: Requestable>(_ requestable: T, completion: @escaping (Result<T.Model, NewsAPIError>) -> Void) {
         guard let request = requestable.urlRequest else { return }
         let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
             if let error = error {
                 completion(.failure(NewsAPIError.unknown(error)))
             }
-            guard let data = data, let _ = response else {
+            guard let data = data, response != nil else {
                 completion(.failure(NewsAPIError.noResponse))
                 return
             }
             do {
-                let model = try? requestable.decode(from: data)
+                let model = try requestable.decode(from: data)
                 completion(.success(model))
             } catch let decodeError {
                 completion(.failure(NewsAPIError.decode(decodeError)))

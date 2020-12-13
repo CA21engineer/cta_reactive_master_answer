@@ -24,11 +24,4 @@ struct NewsSource: Decodable {
         let urlToImage: String?
         let publishedAt: String?
     }
-
-    private enum CodingKeys: String, CodingKey {
-        case status
-        case totalResults
-        case sources
-        case articles
-    }
 }

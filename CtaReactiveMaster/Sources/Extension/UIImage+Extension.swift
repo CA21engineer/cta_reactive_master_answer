@@ -9,7 +9,9 @@ import UIKit
 
 extension UIImage {
     public convenience init?(url: String) {
-        guard let url = URL(string: url) else { return nil }
+        guard let url = URL(string: url) else {
+            return nil
+        }
         guard let data = try? Data(contentsOf: url) else {
             return nil
         }

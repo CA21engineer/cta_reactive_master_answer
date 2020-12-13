@@ -17,10 +17,14 @@ final class ArticleTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    // TODO: articleImageViewのキャッシュ化
-    func setup(articles: NewsSource.Article) {
-        articleImageView.image = UIImage(url: articles.urlToImage ?? "https://s.yimg.com/os/creatr-uploaded-images/2020-12/5fd62c21-3394-11eb-b66f-89a93d8f8950")
-        titleLabel.text = articles.title
-        descriptionLabel.text = articles.description
+    // Todo: articleImageViewのキャッシュ化
+    func setup(article: NewsSource.Article) {
+        guard let imageUrl = article.urlToImage else {
+            articleImageView.image = UIImage(named: "default")
+            return
+        }
+        articleImageView.image = UIImage(url: imageUrl)
+        titleLabel.text = article.title
+        descriptionLabel.text = article.description
     }
 }

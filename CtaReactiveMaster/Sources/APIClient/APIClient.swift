@@ -10,7 +10,7 @@ import Foundation
 struct APIClient {
     func request<T: Requestable, U: Decoder>(_ requestable: T, _ decoder: U, completion: @escaping (Result<U.Model, NewsAPIError>) -> Void) {
         guard let request = requestable.urlRequest else { return }
-        let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
             if let error = error {
                 completion(.failure(NewsAPIError.unknown(error)))
             }

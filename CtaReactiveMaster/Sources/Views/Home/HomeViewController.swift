@@ -19,7 +19,7 @@ final class HomeViewController: UIViewController {
     }
 
     private var articles: [NewsSource.Article] = .init()
-    private var apiClient = APIClient()
+    private let apiClient: APIClient
 
     init(apiClient: APIClient) {
         self.apiClient = apiClient

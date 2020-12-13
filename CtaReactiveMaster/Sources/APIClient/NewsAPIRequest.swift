@@ -8,8 +8,6 @@
 import Foundation
 
 struct NewsAPIRequest: Requestable {
-    typealias Model = NewsSource
-    
     private let country: Country
     private let category: Category
     
@@ -45,10 +43,5 @@ struct NewsAPIRequest: Requestable {
                               ]
         guard let requestURL = baseURL?.url else { return URL(string: "https")! }
         return requestURL
-    }
-
-    func decode(from data: Data) throws -> NewsSource {
-        let jsonDecoder = JSONDecoder()
-        return try jsonDecoder.decode(NewsSource.self, from: data)
     }
 }

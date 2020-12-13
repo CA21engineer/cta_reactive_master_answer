@@ -8,7 +8,7 @@
 import Foundation
 
 struct APIClient {
-    func request<T: Requestable>(_ requestable: T, completion: @escaping (Result<T.Model, NewsAPIError>) -> Void) {
+    func request<T: Requestable, U: Decoder>(_ requestable: T, _ decoder: U, completion: @escaping (Result<U.Model, NewsAPIError>) -> Void) {
         guard let request = requestable.urlRequest else { return }
         let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
             if let error = error {
@@ -19,7 +19,7 @@ struct APIClient {
                 return
             }
             do {
-                let model = try requestable.decode(from: data)
+                let model = try decoder.decode(from: data)
                 completion(.success(model))
             } catch let decodeError {
                 completion(.failure(NewsAPIError.decode(decodeError)))

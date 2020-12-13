@@ -33,7 +33,8 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let request = NewsAPIRequest(country: .jp, category: .technology)
-        apiClient.request(request, completion: { result in
+        let decoder = NewsAPIDecoder()
+        apiClient.request(request, decoder, completion: { result in
             switch result {
             case let .success(model):
                 self.articles = model.articles ?? .init()

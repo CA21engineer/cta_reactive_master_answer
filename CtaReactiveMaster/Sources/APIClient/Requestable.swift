@@ -8,11 +8,7 @@
 import Foundation
 
 protocol Requestable {
-    associatedtype Model
-
     var url: URL { get }
-
-    func decode(from data: Data) throws -> Model
 }
 
 extension Requestable {

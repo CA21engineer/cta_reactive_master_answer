@@ -13,6 +13,6 @@ struct NewsAPIDecoder: Decoder {
     func decode(from data: Data) throws -> NewsSource {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.dateDecodingStrategy = .iso8601
-        return try jsonDecoder.decode(NewsSource.self, from: data)
+        return try jsonDecoder.decode(Model.self, from: data)
     }
 }

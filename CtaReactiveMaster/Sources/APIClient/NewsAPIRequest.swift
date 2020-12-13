@@ -21,7 +21,7 @@ struct NewsAPIRequest: Requestable {
     }
     
     func topHeadlinesURL() -> URL {
-        var baseURL = URLComponents(string: "https://newsapi.org")
+        var baseURL = URLComponents(string: "https://newsapi.org")!
         let topHeadlinesPath = "/v2/top-headlines"
         
         var newsAPIKey: String {
@@ -36,12 +36,12 @@ struct NewsAPIRequest: Requestable {
                 return value
             }
         }
-        baseURL?.path = topHeadlinesPath
-        baseURL?.queryItems = [URLQueryItem(name: "country", value: country.rawValue),
-                               URLQueryItem(name: "category", value: category.rawValue),
-                               URLQueryItem(name: "apiKey", value: newsAPIKey)
-                              ]
-        guard let requestURL = baseURL?.url else { return URL(string: "https")! }
-        return requestURL
+        baseURL.path = topHeadlinesPath
+        baseURL.queryItems = [
+            URLQueryItem(name: "country", value: country.rawValue),
+            URLQueryItem(name: "category", value: category.rawValue),
+            URLQueryItem(name: "apiKey", value: newsAPIKey)
+        ]
+        return baseURL.url!
     }
 }

@@ -5,7 +5,7 @@
 //  Created by 小幡 十矛 on 2020/12/07.
 //
 
-public enum Language: String, Decodable {
+enum Language: String, Decodable {
     case ar = "ar"
     case de = "de"
     case en = "en"

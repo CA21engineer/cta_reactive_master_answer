@@ -29,12 +29,12 @@ struct APIClient {
     }
 }
 
-public enum Result<Value, Error> {
+enum Result<Value, Error> {
     case success(Value)
     case failure(Error)
 }
 
-public enum NewsAPIError: Error {
+enum NewsAPIError: Error {
     case decode(Error)
     case noResponse
     case unknown(Error)

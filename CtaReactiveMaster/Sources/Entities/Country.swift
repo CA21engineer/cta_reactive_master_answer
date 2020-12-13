@@ -29,7 +29,7 @@ enum Country: String, Decodable {
     case id = "id"
     case ie = "ie"
     case il = "il"
-    case ind = "in"
+    case `in` = "in"
     case it = "it"
     case jp = "jp"
     case kr = "kr"

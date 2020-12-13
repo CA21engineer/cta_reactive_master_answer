@@ -6,58 +6,58 @@
 //
 
 enum Country: String, Decodable {
-    case ae = "ae"
-    case ar = "ar"
-    case at = "at"
-    case au = "au"
-    case be = "be"
-    case bg = "bg"
-    case br = "br"
-    case ca = "ca"
-    case ch = "ch"
-    case cn = "cn"
-    case co = "co"
-    case cu = "cu"
-    case cz = "cz"
-    case de = "de"
-    case eg = "eg"
-    case fr = "fr"
-    case gb = "gb"
-    case gr = "gr"
-    case hk = "hk"
-    case hu = "hu"
-    case id = "id"
-    case ie = "ie"
-    case il = "il"
-    case `in` = "in"
-    case it = "it"
-    case jp = "jp"
-    case kr = "kr"
-    case lt = "lt"
-    case lv = "lv"
-    case ma = "ma"
-    case mx = "mx"
-    case my = "my"
-    case ng = "ng"
-    case nl = "nl"
-    case no = "no"
-    case nz = "nz"
-    case ph = "ph"
-    case pl = "pl"
-    case pt = "pt"
-    case ro = "ro"
-    case rs = "rs"
-    case ru = "ru"
-    case sa = "sa"
-    case se = "se"
-    case sg = "sg"
-    case si = "si"
-    case sk = "sk"
-    case th = "th"
-    case tr = "tr"
-    case tw = "tw"
-    case ua = "ua"
-    case us = "us"
-    case ve = "ve"
-    case za = "za"
+    case ae
+    case ar
+    case at
+    case au
+    case be
+    case bg
+    case br
+    case ca
+    case ch
+    case cn
+    case co
+    case cu
+    case cz
+    case de
+    case eg
+    case fr
+    case gb
+    case gr
+    case hk
+    case hu
+    case id
+    case ie
+    case il
+    case `in`
+    case it
+    case jp
+    case kr
+    case lt
+    case lv
+    case ma
+    case mx
+    case my
+    case ng
+    case nl
+    case no
+    case nz
+    case ph
+    case pl
+    case pt
+    case ro
+    case rs
+    case ru
+    case sa
+    case se
+    case sg
+    case si
+    case sk
+    case th
+    case tr
+    case tw
+    case ua
+    case us
+    case ve
+    case za
 }

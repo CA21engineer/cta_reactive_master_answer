@@ -13,7 +13,6 @@ protocol Requestable {
 
 extension Requestable {
     var urlRequest: URLRequest? {
-        let request = URLRequest(url: url)
-        return request
+        URLRequest(url: url)
     }
 }

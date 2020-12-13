@@ -14,7 +14,6 @@ final class HomeViewController: UIViewController {
             tableView.delegate = self
             tableView.dataSource = self
             tableView.register(UINib(nibName: "ArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "ArticleTableViewCell")
-            tableView.rowHeight = 128
             tableView.contentInsetAdjustmentBehavior = .never
         }
     }

@@ -44,12 +44,12 @@ final class HomeViewController: UIViewController {
                 }
             case let .failure(error):
                 switch error {
-                    case .noResponse:
-                        print("Error!! No Response")
-                    case let .unknown(error):
-                        print("Error!! Unknown: \(error)")
-                    default:
-                        print("Error!! \(error)")
+                case .noResponse:
+                    print("Error!! No Response")
+                case let .decode(error):
+                    print("Error!! Decode: \(error)")
+                case let .unknown(error):
+                    print("Error!! Unknown: \(error)")
                 }
             }
         })

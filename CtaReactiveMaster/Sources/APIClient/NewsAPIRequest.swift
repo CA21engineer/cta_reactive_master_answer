@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Keys {
+enum Key {
     static var newsApi: String {
         guard let filePath = Bundle.main.path(forResource: "APIKey", ofType: "plist") else {
             fatalError("Couldn't find file 'APIKey.plist'")
@@ -33,7 +33,7 @@ struct NewsAPIRequest: Requestable {
         baseURL.queryItems = [
             URLQueryItem(name: "country", value: country.rawValue),
             URLQueryItem(name: "category", value: category.rawValue),
-            URLQueryItem(name: "apiKey", value: Keys.newsApi)
+            URLQueryItem(name: "apiKey", value: Key.newsApi)
         ]
         return baseURL.url!
     }

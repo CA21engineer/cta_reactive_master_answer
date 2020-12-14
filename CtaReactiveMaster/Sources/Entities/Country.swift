@@ -5,7 +5,7 @@
 //  Created by 小幡 十矛 on 2020/12/07.
 //
 
-enum Country: String, Decodable {
+enum Country: String {
     case ae
     case ar
     case at

@@ -20,8 +20,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
             let window = UIWindow(windowScene: windowScene)
             self.window = window
-            let apiClient = APIClient()
-            window.rootViewController = HomeViewController(apiClient: apiClient)
+        let repository = NewsRepository()
+            window.rootViewController = HomeViewController(repository: repository)
             window.makeKeyAndVisible()
     }
 

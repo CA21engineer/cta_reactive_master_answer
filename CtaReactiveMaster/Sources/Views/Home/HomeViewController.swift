@@ -19,10 +19,10 @@ final class HomeViewController: UIViewController {
     }
 
     private var articles: [NewsSource.Article] = .init()
-    private let apiClient: APIClient
+    private let repository: NewsRepository
 
-    init(apiClient: APIClient) {
-        self.apiClient = apiClient
+    init(repository: NewsRepository) {
+        self.repository = repository
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -33,14 +33,12 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let request = NewsAPIRequest(country: .jp, category: .technology)
-        let decoder = NewsAPIDecoder()
-        apiClient.request(request, decoder) { result in
+        repository.fetch { [weak self] result in
             switch result {
             case let .success(model):
-                self.articles = model.articles ?? .init()
+                self?.articles = model.articles ?? .init()
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                    self?.tableView.reloadData()
                 }
             case let .failure(error):
                 switch error {

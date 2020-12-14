@@ -65,4 +65,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.setup(article: articles[indexPath.row])
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let ArticleTableViewCellHeigth: CGFloat = 128
+        return ArticleTableViewCellHeigth
+    }
 }

@@ -14,7 +14,6 @@ final class HomeViewController: UIViewController {
             tableView.delegate = self
             tableView.dataSource = self
             tableView.registerNib(ArticleTableViewCell.self)
-            tableView.contentInsetAdjustmentBehavior = .never
         }
     }
 
@@ -65,5 +64,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeue(ArticleTableViewCell.self, for: indexPath)
         cell.setup(article: articles[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let ArticleTableViewCellHeigth: CGFloat = 128
+        return ArticleTableViewCellHeigth
     }
 }

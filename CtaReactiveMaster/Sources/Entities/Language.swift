@@ -5,7 +5,7 @@
 //  Created by 小幡 十矛 on 2020/12/07.
 //
 
-enum Language: String, Decodable {
+enum Language: String {
     case ar
     case de
     case en

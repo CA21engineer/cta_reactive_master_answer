@@ -13,7 +13,7 @@ final class HomeViewController: UIViewController {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.register(UINib(nibName: "ArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "ArticleTableViewCell")
+            tableView.registerNib(ArticleTableViewCell.self)
         }
     }
 
@@ -61,7 +61,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleTableViewCell", for: indexPath) as! ArticleTableViewCell
+        let cell = tableView.dequeue(ArticleTableViewCell.self, for: indexPath)
         cell.setup(article: articles[indexPath.row])
         return cell
     }

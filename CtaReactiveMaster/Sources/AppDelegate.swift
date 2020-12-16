@@ -16,8 +16,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         let window = UIWindow(frame: UIScreen.main.bounds)
-        let apiClient = APIClient()
-        window.rootViewController = UINavigationController(rootViewController:  HomeViewController(apiClient: apiClient))
+        let repository = NewsRepository()
+        window.rootViewController = HomeViewController(repository: repository)
         self.window = window
         self.window?.makeKeyAndVisible()
 

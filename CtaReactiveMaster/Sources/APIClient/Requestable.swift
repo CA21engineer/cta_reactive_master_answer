@@ -8,11 +8,12 @@
 import Foundation
 
 protocol Requestable {
+    associatedtype Response: Decodable
     var url: URL { get }
 }
 
 extension Requestable {
-    var urlRequest: URLRequest? {
+    var urlRequest: URLRequest {
         URLRequest(url: url)
     }
 }

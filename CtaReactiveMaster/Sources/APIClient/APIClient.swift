@@ -8,9 +8,10 @@
 import Foundation
 
 struct APIClient {
-    func request<T: Requestable, U: Decoder>(_ requestable: T, _ decoder: U, completion: @escaping (Result<U.Model, NewsAPIError>) -> Void) {
-        guard let request = requestable.urlRequest else { return }
-        let task = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
+    let decoder = JSONDecoder()
+
+    func request<T: Requestable>(_ request: T, completion: @escaping (Result<T.Response, NewsAPIError>) -> Void) {
+        let task = URLSession.shared.dataTask(with: request.urlRequest, completionHandler: { data, response, error in
             if let error = error {
                 completion(.failure(NewsAPIError.unknown(error)))
             }
@@ -19,7 +20,7 @@ struct APIClient {
                 return
             }
             do {
-                let model = try decoder.decode(from: data)
+                let model = try decoder.decode(T.Response.self, from: data)
                 completion(.success(model))
             } catch let decodeError {
                 completion(.failure(NewsAPIError.decode(decodeError)))

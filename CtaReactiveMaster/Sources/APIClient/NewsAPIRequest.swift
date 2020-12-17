@@ -54,7 +54,8 @@ struct NewsAPIRequest: Requestable {
             ]
         case let .sources(q):
             baseURL.queryItems = [
-                URLQueryItem(name: "q", value: q)
+                URLQueryItem(name: "q", value: q),
+                URLQueryItem(name: "apiKey", value: Key.newsApi)
             ]
         case let .everything(country, category, language):
             baseURL.queryItems = [

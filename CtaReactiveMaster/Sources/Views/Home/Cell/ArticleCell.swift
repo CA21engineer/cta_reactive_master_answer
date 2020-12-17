@@ -1,5 +1,5 @@
 //
-//  ArticleTableViewCell.swift
+//  ArticleCell.swift
 //  CtaReactiveMaster
 //
 //  Created by 小幡 十矛 on 2020/12/05.
@@ -8,7 +8,7 @@
 import UIKit
 import Nuke
 
-final class ArticleTableViewCell: UITableViewCell {
+final class ArticleCell: UITableViewCell {
     @IBOutlet private weak var articleImageView: UIImageView! {
         didSet {
             articleImageView.contentMode = .scaleAspectFill

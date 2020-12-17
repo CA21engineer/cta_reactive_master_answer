@@ -19,7 +19,7 @@ struct NewsRepository: Repository {
 
     let apiClient = APIClient(decoder: JSONDecoder.iso8601)
 
-    func fetch(completion: @escaping (Result<NewsSource, NewsAPIError>) -> Void) {
+    func fetch(completion: @escaping (Result<Response, NewsAPIError>) -> Void) {
         let request = NewsAPIRequest(endpoint: .topHeadline(country: .jp, category: .technology))
         apiClient.request(request, completion: completion)
     }

@@ -11,6 +11,7 @@ final class ArticleCell: UITableViewCell {
     @IBOutlet private weak var articleImageView: UIImageView! {
         didSet {
             articleImageView.contentMode = .scaleAspectFill
+            articleImageView.layer.cornerRadius = 4
         }
     }
 

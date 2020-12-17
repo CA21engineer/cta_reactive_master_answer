@@ -17,7 +17,7 @@ protocol Repository {
 struct NewsRepository: Repository {
     typealias Response = NewsSource
 
-    let apiClient = APIClient()
+    let apiClient = APIClient(decoder: JSONDecoder.iso8601)
 
     func fetch(completion: @escaping (Result<NewsSource, NewsAPIError>) -> Void) {
         let request = NewsAPIRequest(endpoint: .topHeadline(country: .jp, category: .technology))

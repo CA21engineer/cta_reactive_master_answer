@@ -8,9 +8,9 @@
 import Foundation
 
 extension JSONDecoder {
-    static var iso8601: JSONDecoder {
+    static let iso8601: JSONDecoder = {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.dateDecodingStrategy = .iso8601
         return jsonDecoder
-    }
+    }()
 }

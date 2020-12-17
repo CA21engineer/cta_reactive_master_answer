@@ -40,11 +40,11 @@ final class ArticleCell: UITableViewCell {
     }
 
     func setup(article: NewsSource.Article) {
-        guard let imageUrl = article.urlToImage else {
-            articleImageView.image = UIImage(named: "default")
-            return
+        if let imageUrl = article.urlToImage {
+            articleImageView.image = UIImage(url: imageUrl)
+        } else {
+            articleImageView.image = #imageLiteral(resourceName: "default")
         }
-        articleImageView.image = UIImage(url: imageUrl)
         titleLabel.text = article.title
         descriptionLabel.text = article.description
     }

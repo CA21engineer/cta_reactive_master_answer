@@ -15,8 +15,7 @@ final class HomeViewController: UIViewController {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.register(UINib(nibName: "ArticleTableViewCell", bundle: nil), forCellReuseIdentifier: "ArticleTableViewCell")
-            tableView.rowHeight = 128
+            tableView.registerNib(ArticleTableViewCell.self)
             tableView.refreshControl = refreshControl
         }
     }
@@ -24,13 +23,14 @@ final class HomeViewController: UIViewController {
     private var articles: [NewsSource.Article] = []
     private let disposeBag = DisposeBag()
     private let refreshControl = UIRefreshControl()
-    private let apiClient: APIClient
+    private let repository: NewsRepository
 
-    init(apiClient: APIClient) {
-        self.apiClient = apiClient
+    init(repository: NewsRepository) {
+        self.repository = repository
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -50,13 +50,12 @@ final class HomeViewController: UIViewController {
     }
 
     private func fetchNewsAPI() {
-        let request = NewsAPIRequest(country: .jp, category: .technology)
-        apiClient.request(request)
+        repository.fetch()
             .subscribeOn(SerialDispatchQueueScheduler(qos: .background))
             .observeOn(MainScheduler.instance)
-            .subscribe { [weak self] result in
+            .subscribe { [weak self] response in
                 guard let self = self else { return }
-                self.articles = result.articles ?? []
+                self.articles = response.articles
                 self.tableView.reloadData()
                 if self.refreshControl.isRefreshing {
                     self.refreshControl.endRefreshing()
@@ -70,12 +69,17 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.articles.count
+        articles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleTableViewCell", for: indexPath) as! ArticleTableViewCell
-        cell.setup(articles: articles[indexPath.row])
+        let cell = tableView.dequeue(ArticleTableViewCell.self, for: indexPath)
+        cell.setup(article: articles[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let ArticleTableViewCellHeigth: CGFloat = 128
+        return ArticleTableViewCellHeigth
     }
 }

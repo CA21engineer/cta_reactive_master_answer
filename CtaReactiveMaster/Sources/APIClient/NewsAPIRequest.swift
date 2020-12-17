@@ -7,48 +7,51 @@
 
 import Foundation
 
-struct NewsAPIRequest: Requestable {
-    typealias Model = NewsSource
-    
-    let country: Country
-    let category: Category
+enum Key {
+    static var newsApi: String {
+        guard let filePath = Bundle.main.path(forResource: "APIKey", ofType: "plist") else {
+            fatalError("Couldn't find file 'APIKey.plist'")
+        }
+        let plist = NSDictionary(contentsOfFile: filePath)
+        guard let value = plist?.object(forKey: "newsAPIKey") as? String else {
+            fatalError("Couldn't find key 'newsAPIKey' in 'APIKey.plist'")
+        }
+        return value
+    }
+}
 
-    init(country: Country, category: Category) {
+enum Endpoint: String {
+    case topHeadline = "/v2/top-headlines"
+    case sources = "/v2/sources"
+    // Todo: case everything = "/v2/everything"
+}
+
+struct NewsAPIRequest: Requestable {
+    typealias Response = NewsSource
+
+    private let endpoint: Endpoint
+    private let country: Country
+    private let category: Category
+    
+    var url: URL {
+        var baseURL = URLComponents(string: "https://newsapi.org")!
+        
+        baseURL.path = endpoint.rawValue
+        baseURL.queryItems = [
+            URLQueryItem(name: "country", value: country.rawValue),
+            URLQueryItem(name: "category", value: category.rawValue),
+            URLQueryItem(name: "apiKey", value: Key.newsApi)
+        ]
+        return baseURL.url!
+    }
+
+    init(
+        endpoint: Endpoint,
+        country: Country,
+        category: Category
+    ) {
+        self.endpoint = endpoint
         self.country = country
         self.category = category
-    }
-    
-    func topHeadlinesURL() -> URL {
-        var baseURL = URLComponents(string: "https://newsapi.org")
-        let topHeadlinesPath = "/v2/top-headlines"
-        
-        var newsAPIKey: String {
-            get {
-                guard let filePath = Bundle.main.path(forResource: "APIKey", ofType: "plist") else {
-                    fatalError("Couldn't find file 'APIKey.plist'")
-                }
-                let plist = NSDictionary(contentsOfFile: filePath)
-                guard let value = plist?.object(forKey: "newsAPIKey") as? String else {
-                    fatalError("Couldn't find key 'newsAPIKey' in 'APIKey.plist'")
-                }
-                return value
-            }
-        }
-        baseURL?.path = topHeadlinesPath
-        baseURL?.queryItems = [URLQueryItem(name: "country", value: country.rawValue),
-                               URLQueryItem(name: "category", value: category.rawValue),
-                               URLQueryItem(name: "apiKey", value: newsAPIKey)
-                              ]
-        guard let requestURL = baseURL?.url else { return URL(string: "https")! }
-        return requestURL
-    }
-
-    var url: URL {
-        return topHeadlinesURL()
-    }
-
-    func decode(from data: Data) throws -> NewsSource {
-        let jsonDecoder = JSONDecoder()
-        return try jsonDecoder.decode(NewsSource.self, from: data)
     }
 }

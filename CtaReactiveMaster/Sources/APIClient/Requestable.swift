@@ -8,16 +8,12 @@
 import Foundation
 
 protocol Requestable {
-    associatedtype Model
-
+    associatedtype Response: Decodable
     var url: URL { get }
-
-    func decode(from data: Data) throws -> Model
 }
 
 extension Requestable {
-    var urlRequest: URLRequest? {
-        let request = URLRequest(url: url)
-        return request
+    var urlRequest: URLRequest {
+        URLRequest(url: url)
     }
 }

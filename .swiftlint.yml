@@ -1,6 +1,8 @@
 # ref: https://medium.com/developerinsider/how-to-use-swiftlint-with-xcode-to-enforce-swift-style-and-conventions-368e49e910
 disabled_rules:
 - trailing_whitespace
+- identifier_name
+- redundant_string_enum_value
 
 opt_in_rules:
 - empty_count
@@ -9,7 +11,6 @@ opt_in_rules:
 excluded:
 - Carthage
 - Pods
-- SwiftLint/Common/3rdPartyLib
 
 line_length:
     warning: 150

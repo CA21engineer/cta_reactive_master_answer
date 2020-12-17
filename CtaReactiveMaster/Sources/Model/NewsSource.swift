@@ -8,13 +8,7 @@
 struct NewsSource: Decodable {
     let status: String
     let totalResults: Int?
-    let sources: [Source]?
-    let articles: [Article]?
-
-    struct Source: Decodable {
-        let id: String?
-        let name: String?
-    }
+    let articles: [Article]
 
     struct Article: Decodable {
         let title: String?
@@ -23,12 +17,12 @@ struct NewsSource: Decodable {
         let url: String?
         let urlToImage: String?
         let publishedAt: String?
+        let content: String?
+        let source: Source
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case status
-        case totalResults
-        case sources
-        case articles
+    struct Source: Decodable {
+        let id: String?
+        let name: String?
     }
 }

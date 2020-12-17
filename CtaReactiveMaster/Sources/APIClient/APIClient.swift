@@ -9,17 +9,16 @@ import Foundation
 import RxSwift
 
 struct APIClient {
-    func request<T: Requestable>(_ requestable: T) -> Single<T.Model> {
-        guard let request = requestable.urlRequest else {
-            return Single.error(NewsAPIError.requestNotFound)
-        }
-        return Single<T.Model>.create { single in
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+    let decoder = JSONDecoder()
+
+    func request<T: Requestable>(_ request: T) -> Single<T.Response> {
+        Single<T.Response>.create { single in
+            let task = URLSession.shared.dataTask(with: request.urlRequest) { data, response, error in
                 if let error = error {
                     single(.error(NewsAPIError.unknown(error)))
                 } else if let data = data, response != nil {
                     do {
-                        let model = try requestable.decode(from: data)
+                        let model = try decoder.decode(T.Response.self, from: data)
                         single(.success(model))
                     } catch {
                         single(.error(NewsAPIError.decode(error)))
@@ -38,5 +37,4 @@ enum NewsAPIError: Error {
     case decode(Error)
     case noResponse
     case unknown(Error)
-    case requestNotFound
 }

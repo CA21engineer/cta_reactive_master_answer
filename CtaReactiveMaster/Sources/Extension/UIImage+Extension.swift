@@ -8,15 +8,13 @@
 import UIKit
 
 extension UIImage {
-    public convenience init(url: String) {
-        let url = URL(string: url)
-        do {
-            let data = try Data(contentsOf: url!)
-            self.init(data: data)!
-            return
-        } catch let error {
-            print("Error : \(error.localizedDescription)")
+    public convenience init?(url: String) {
+        guard let url = URL(string: url) else {
+            return nil
         }
-        self.init()
+        guard let data = try? Data(contentsOf: url) else {
+            return nil
+        }
+        self.init(data: data)
     }
 }

@@ -1,0 +1,17 @@
+name: CtaReactiveMaster
+targets:
+  CtaReactiveMaster:
+    type: application
+    platform: iOS
+    deploymentTarget: "13.0"
+    sources: CtaReactiveMaster
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: ca21engineer.CtaReactiveMaster
+  CtaReactiveMasterTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "13.0"
+    sources: CtaReactiveMasterTests
+    dependencies:
+      - target: CtaReactiveMaster
+

@@ -7,8 +7,16 @@ CA Tech AccelでiOSアプリ開発におけるReactiveを理解していく学�
 以下のコマンドを叩くことで依存しているライブラリをインストールする
 
 ```
-make setup
+$ make setup
 ```
+
+### APIKeyの追加
+
+1. Resourcesディレクトリ内に`APIKey.plist`ファイルを作成
+2. 作成したファイルのRoot内に、以下を記述
+  - Key: newsAPIKey
+  - Type: String
+  - Value: [News API](https://newsapi.org/)で取得したAPI Key
 
 ## Getting Started
 

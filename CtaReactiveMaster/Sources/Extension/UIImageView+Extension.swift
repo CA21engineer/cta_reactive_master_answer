@@ -1,5 +1,5 @@
 //
-//  Nuke+Extension.swift
+//  UIImageView+Extension.swift
 //  CtaReactiveMaster
 //
 //  Created by Takuma Osada on 2020/12/19.

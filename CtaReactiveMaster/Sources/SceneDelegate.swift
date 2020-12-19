@@ -18,11 +18,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
-            let window = UIWindow(windowScene: windowScene)
-            self.window = window
-            let repository = NewsRepository()
-            window.rootViewController = HomeViewController(repository: repository)
-            window.makeKeyAndVisible()
+        let window = UIWindow(windowScene: windowScene)
+        self.window = window
+        let repository = NewsRepository()
+        window.rootViewController = HomeViewController(repository: repository)
+        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

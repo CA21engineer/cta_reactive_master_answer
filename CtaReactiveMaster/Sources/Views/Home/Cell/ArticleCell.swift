@@ -39,7 +39,7 @@ final class ArticleCell: UITableViewCell {
         backgroundColor = .clear
     }
 
-    func setup(article: NewsSource.Article) {
+    func setup(article: Article) {
         articleImageView.loadImage(from: article.urlToImage)
         titleLabel.text = article.title
         descriptionLabel.text = article.description

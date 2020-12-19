@@ -69,7 +69,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let article = articles[indexPath.row]
         guard let url = article.webURL else { return }
         let viewController = SFSafariViewController(url: url)
-        self.present(viewController, animated: true)
+        present(viewController, animated: true)
 
     }
 }

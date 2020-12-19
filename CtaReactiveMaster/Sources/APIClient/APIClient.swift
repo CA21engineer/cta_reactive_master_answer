@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 struct APIClient {
-    let decoder = JSONDecoder()
+    let decoder: JSONDecoder
 
     func request<T: Requestable>(_ request: T) -> Single<T.Response> {
         Single<T.Response>.create { single in

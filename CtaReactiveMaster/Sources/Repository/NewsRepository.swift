@@ -18,10 +18,10 @@ protocol Repository {
 struct NewsRepository: Repository {
     typealias Response = NewsSource
 
-    let apiClient = APIClient()
+    let apiClient = APIClient(decoder: .iso8601)
 
     func fetch() -> Single<Response> {
-        let request = NewsAPIRequest(endpoint: .topHeadline, country: .jp, category: .technology)
+        let request = NewsAPIRequest(endpoint: .topHeadline(country: .jp, category: .technology))
         return apiClient.request(request)
     }
 }

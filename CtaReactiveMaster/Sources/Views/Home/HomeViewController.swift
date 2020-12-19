@@ -15,8 +15,8 @@ final class HomeViewController: UIViewController {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.registerNib(ArticleTableViewCell.self)
             tableView.refreshControl = refreshControl
+            tableView.registerNib(ArticleCell.self)
         }
     }
 
@@ -73,13 +73,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(ArticleTableViewCell.self, for: indexPath)
+        let cell = tableView.dequeue(ArticleCell.self, for: indexPath)
         cell.setup(article: articles[indexPath.row])
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let ArticleTableViewCellHeigth: CGFloat = 128
-        return ArticleTableViewCellHeigth
     }
 }

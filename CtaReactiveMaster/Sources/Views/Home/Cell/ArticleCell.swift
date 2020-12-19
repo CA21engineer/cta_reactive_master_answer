@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Nuke
 
 final class ArticleCell: UITableViewCell {
     @IBOutlet private weak var articleImageView: UIImageView! {
@@ -43,7 +42,7 @@ final class ArticleCell: UITableViewCell {
     // Todo: articleImageViewのキャッシュ化
     func setup(article: NewsSource.Article) {
         if let imageUrl = article.urlToImage {
-            articleImageView.image = UIImage(url: imageUrl)
+            articleImageView.image = UIImage(url: imageUrl) ?? #imageLiteral(resourceName: "default")
         } else {
             articleImageView.image = #imageLiteral(resourceName: "default")
         }

@@ -414,7 +414,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which mint >/dev/null; then\n  mint run swiftlint\n  mint run swiftformat\nelse\n  echo \"warning: Mintがインストールされていません。こちらからダウンロードしてください https://github.com/yonaskolb/Mint\"\nfi\n";
+			shellScript = "
+";
 		};
 		DAF3F50D7173C3BAAADB89E9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

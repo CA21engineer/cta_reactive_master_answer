@@ -13,7 +13,7 @@ struct APIClient {
 
     func request<T: Requestable>(_ request: T) -> Single<T.Response> {
         Single<T.Response>.create { single in
-            let task = URLSession.shared.dataTask(with: request.urlRequest) { data, response, error in
+            let task = URLSession.shared.dataTask(with: request.url) { data, response, error in
                 if let error = error {
                     single(.error(NewsAPIError.unknown(error)))
                 } else if let data = data, response != nil {

@@ -39,13 +39,8 @@ final class ArticleCell: UITableViewCell {
         backgroundColor = .clear
     }
 
-    // Todo: articleImageViewのキャッシュ化
     func setup(article: NewsSource.Article) {
-        if let imageUrl = article.urlToImage {
-            articleImageView.image = UIImage(url: imageUrl) ?? #imageLiteral(resourceName: "default")
-        } else {
-            articleImageView.image = #imageLiteral(resourceName: "default")
-        }
+        articleImageView.loadImage(from: article.urlToImage)
         titleLabel.text = article.title
         descriptionLabel.text = article.description
     }

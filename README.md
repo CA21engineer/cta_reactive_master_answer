@@ -10,12 +10,6 @@ CA Tech AccelでiOSアプリ開発におけるReactiveを理解していく学�
 $ make setup
 ```
 
-### パッケージインストール
-
-```
-$ mint bootstrap
-```
-
 ### APIKeyの追加
 
 1. Resourcesディレクトリ内に`APIKey.plist`ファイルを作成

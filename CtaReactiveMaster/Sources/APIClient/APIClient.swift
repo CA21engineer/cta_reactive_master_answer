@@ -11,7 +11,7 @@ struct APIClient {
     let decoder: JSONDecoder
 
     func request<T: Requestable>(_ request: T, completion: @escaping (Result<T.Response, NewsAPIError>) -> Void) {
-        let task = URLSession.shared.dataTask(with: request.url, completionHandler: { data, response, error in
+        let task = URLSession.shared.dataTask(with: request.url) { data, response, error in
             if let error = error {
                 completion(.failure(NewsAPIError.unknown(error)))
             }
@@ -25,7 +25,7 @@ struct APIClient {
             } catch let decodeError {
                 completion(.failure(NewsAPIError.decode(decodeError)))
             }
-        })
+        }
         task.resume()
     }
 }

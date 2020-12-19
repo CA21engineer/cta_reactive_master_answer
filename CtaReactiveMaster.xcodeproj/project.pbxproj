@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		822698FA258DC63C009F82B8 /* Nuke+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822698F9258DC63C009F82B8 /* Nuke+Extension.swift */; };
+		822698FA258DC63C009F82B8 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822698F9258DC63C009F82B8 /* UIImageView+Extension.swift */; };
 		8236976A258904FA00ACDAF2 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82369769258904FA00ACDAF2 /* UITableView+Extension.swift */; };
 		8236976E2589055F00ACDAF2 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8236976D2589055F00ACDAF2 /* NSObject+Extension.swift */; };
 		82796DEF2569247500443E2F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82796DED2569247500443E2F /* HomeViewController.swift */; };
@@ -48,7 +48,7 @@
 		3FC7953F071F701FCC5EC101 /* Pods-CtaReactiveMasterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CtaReactiveMasterTests.release.xcconfig"; path = "Target Support Files/Pods-CtaReactiveMasterTests/Pods-CtaReactiveMasterTests.release.xcconfig"; sourceTree = "<group>"; };
 		66491872529817495C7A15B5 /* Pods-CtaReactiveMasterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CtaReactiveMasterTests.debug.xcconfig"; path = "Target Support Files/Pods-CtaReactiveMasterTests/Pods-CtaReactiveMasterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		705E3A12E8A77B5A88182FE7 /* Pods_CtaReactiveMasterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CtaReactiveMasterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		822698F9258DC63C009F82B8 /* Nuke+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Nuke+Extension.swift"; sourceTree = "<group>"; };
+		822698F9258DC63C009F82B8 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		82369769258904FA00ACDAF2 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		8236976D2589055F00ACDAF2 /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
 		82796DED2569247500443E2F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 				82369769258904FA00ACDAF2 /* UITableView+Extension.swift */,
 				8236976D2589055F00ACDAF2 /* NSObject+Extension.swift */,
 				D833368F258A786B002CB373 /* JsonDecoder+Extension.swift */,
-				822698F9258DC63C009F82B8 /* Nuke+Extension.swift */,
+				822698F9258DC63C009F82B8 /* UIImageView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -453,7 +453,7 @@
 				D85E19B4257B83AA00B040F2 /* ArticleCell.swift in Sources */,
 				D85E19CD257D30D900B040F2 /* Language.swift in Sources */,
 				D848D49E2568190F008CA221 /* SceneDelegate.swift in Sources */,
-				822698FA258DC63C009F82B8 /* Nuke+Extension.swift in Sources */,
+				822698FA258DC63C009F82B8 /* UIImageView+Extension.swift in Sources */,
 				D85E19D1257D313300B040F2 /* Requestable.swift in Sources */,
 				82796DEF2569247500443E2F /* HomeViewController.swift in Sources */,
 				D85E19D5257D316400B040F2 /* NewsAPIRequest.swift in Sources */,

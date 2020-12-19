@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 final class HomeViewController: UIViewController {
 
@@ -17,7 +18,7 @@ final class HomeViewController: UIViewController {
         }
     }
 
-    private var articles: [NewsSource.Article] = []
+    private var articles: [Article] = []
     private let repository: NewsRepository
 
     init(repository: NewsRepository) {
@@ -62,5 +63,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeue(ArticleCell.self, for: indexPath)
         cell.setup(article: articles[indexPath.row])
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let article = articles[indexPath.row]
+        guard let url = article.webURL else { return }
+        let viewController = SFSafariViewController(url: url)
+        present(viewController, animated: true)
+    }
+}
+
+private extension Article {
+    var webURL: URL? {
+        if let url = url {
+            return URL(string: url)
+        } else {
+            return nil
+        }
     }
 }

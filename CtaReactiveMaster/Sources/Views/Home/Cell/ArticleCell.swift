@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Nuke
 
 final class ArticleCell: UITableViewCell {
     @IBOutlet private weak var articleImageView: UIImageView! {

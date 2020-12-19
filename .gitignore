@@ -13,4 +13,4 @@ xcuserdata
 vendor/
 
 # APIKey
-*/Resources/Apikey.plist
+*/Resources/APIKey.plist

@@ -26,7 +26,7 @@ Git の管理からも外しているため、生成しないと開発ができ�
 生成するには、以下のコマンドを叩いてください。
 
 ```
-$ make gen
+$ make xcodegen
 ```
 
 ## Getting Started

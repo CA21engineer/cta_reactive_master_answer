@@ -5,7 +5,7 @@ xcodegen:
 setup:
 	scripts/setup_env.sh
 	bundle install
-	make gen
+	make xcodegen
 
 update:
 	bundle exec pod update

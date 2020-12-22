@@ -17,7 +17,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let window = UIWindow(frame: UIScreen.main.bounds)
         let repository = NewsRepository()
-        window.rootViewController = HomeViewController(repository: repository)
+        let dependency = HomeViewModel.Dependency(repository: repository)
+        let viewModel = HomeViewModel(dependency: dependency)
+        window.rootViewController = HomeViewController(viewModel: viewModel)
         self.window = window
         self.window?.makeKeyAndVisible()
 

@@ -21,7 +21,7 @@ $ make setup
 
 ### プロジェクトファイルの生成
 
-今回このリポジトリでは `XcodeGen` というツールを使って `CtaReactiveMaster.xcodeproj` を生成しています。
+今回このリポジトリでは [`XcodeGen`](https://github.com/yonaskolb/XcodeGen) というツールを使って `CtaReactiveMaster.xcodeproj` を生成しています。
 Git の管理からも外しているため、生成しないと開発ができません。
 生成するには、以下のコマンドを叩いてください。
 

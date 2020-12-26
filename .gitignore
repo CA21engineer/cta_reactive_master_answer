@@ -14,3 +14,7 @@ vendor/
 
 # APIKey
 */Resources/APIKey.plist
+
+# XcodeGen
+*.xcodeproj
+*.xcworkspace

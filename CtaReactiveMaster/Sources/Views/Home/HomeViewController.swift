@@ -14,20 +14,17 @@ final class HomeViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
-            tableView.delegate = self
-            tableView.dataSource = self
             tableView.refreshControl = refreshControl
             tableView.registerNib(ArticleCell.self)
         }
     }
 
-    private var articles: [Article] = []
     private let disposeBag = DisposeBag()
     private let refreshControl = UIRefreshControl()
-    private let repository: NewsRepository
+    private let viewModel: HomeViewModelType
 
-    init(repository: NewsRepository) {
-        self.repository = repository
+    init(viewModel: HomeViewModelType) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -38,52 +35,39 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchNewsAPI()
+        viewModel.input.viewDidLoad()
+        bindToViewModel()
+    }
 
+    private func bindToViewModel() {
         refreshControl
             .rx
             .controlEvent(.valueChanged)
             .asDriver()
             .drive { [weak self] _ in
-                self?.fetchNewsAPI()
+                self?.viewModel.input.pullToRefresh()
             }
             .disposed(by: disposeBag)
-    }
 
-    private func fetchNewsAPI() {
-        repository.fetch()
-            .subscribeOn(SerialDispatchQueueScheduler(qos: .background))
-            .observeOn(MainScheduler.instance)
-            .subscribe { [weak self] response in
-                guard let self = self else { return }
-                self.articles = response.articles
-                self.tableView.reloadData()
-                if self.refreshControl.isRefreshing {
-                    self.refreshControl.endRefreshing()
+        tableView.rx.modelSelected(Article.self)
+            .asDriver()
+            .drive(Binder(self) { me, article in
+                guard let url = article.webURL else { return }
+                let viewController = SFSafariViewController(url: url)
+                me.present(viewController, animated: true)
+            }).disposed(by: disposeBag)
+
+        viewModel.output.articles.asObservable()
+            .bind(to: tableView.rx.items(cellIdentifier: ArticleCell.className, cellType: ArticleCell.self))  { index, item, cell in
+                cell.setup(article: item)
+            }.disposed(by: disposeBag)
+
+        viewModel.output.articles.asObservable()
+            .bind(to: Binder(self) { me, _ in
+                if me.refreshControl.isRefreshing {
+                    me.refreshControl.endRefreshing()
                 }
-            } onError: { error in
-                print(error)
-            }
-            .disposed(by: disposeBag)
-    }
-}
-
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        articles.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(ArticleCell.self, for: indexPath)
-        cell.setup(article: articles[indexPath.row])
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let article = articles[indexPath.row]
-        guard let url = article.webURL else { return }
-        let viewController = SFSafariViewController(url: url)
-        present(viewController, animated: true)
+            }).disposed(by: disposeBag)
     }
 }
 

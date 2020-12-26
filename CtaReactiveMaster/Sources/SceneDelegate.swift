@@ -21,7 +21,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         let repository = NewsRepository()
-        window.rootViewController = HomeViewController(repository: repository)
+        let viewModel = HomeViewModel(dependency: .init(repository: repository))
+        window.rootViewController = HomeViewController(
+            viewModel: viewModel
+        )
         window.makeKeyAndVisible()
     }
 

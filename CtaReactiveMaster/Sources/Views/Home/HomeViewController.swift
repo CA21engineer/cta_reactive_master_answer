@@ -35,8 +35,8 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.input.viewDidLoad()
         bindToViewModel()
+        viewModel.input.viewDidLoad()
     }
 
     private func bindToViewModel() {
@@ -67,6 +67,16 @@ final class HomeViewController: UIViewController {
                 if me.refreshControl.isRefreshing {
                     me.refreshControl.endRefreshing()
                 }
+            }).disposed(by: disposeBag)
+
+        viewModel.output.showLoading
+            .emit(to: Binder(self) { me, _ in
+                me.showIndicator()
+            }).disposed(by: disposeBag)
+
+        viewModel.output.hideLoading
+            .emit(to: Binder(self) { me, _ in
+                me.hideIndicator()
             }).disposed(by: disposeBag)
     }
 }

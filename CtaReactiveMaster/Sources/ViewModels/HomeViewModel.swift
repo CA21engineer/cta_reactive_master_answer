@@ -11,8 +11,6 @@ import RxCocoa
 protocol HomeViewModelType {
     var input: HomeViewModelInputs { get }
     var output: HomeViewModelOutputs { get }
-
-    init(dependency: HomeViewModelDependency)
 }
 
 protocol HomeViewModelInputs {
@@ -26,16 +24,20 @@ protocol HomeViewModelOutputs {
     var hideLoading: Signal<Void> { get }
 }
 
-struct HomeViewModelDependency {
-    let repository: NewsRepository
-}
-
 struct HomeViewModel: HomeViewModelType, HomeViewModelInputs, HomeViewModelOutputs {
     private let disposeBag = DisposeBag()
 
     private let loadingStatus = BehaviorRelay<LoadingStatus>(value: .initial)
 
-    init(dependency: HomeViewModelDependency) {
+    struct Dependency {
+        let repository: NewsRepository
+
+        init(repository: NewsRepository = NewsRepository()) {
+            self.repository = repository
+        }
+    }
+
+    init(dependency: Dependency) {
         self.articles = articlesRelay.asDriver()
         self.showLoading = showLoadingRelay.asSignal()
         self.hideLoading = hideLoadingRelay.asSignal()
@@ -78,7 +80,6 @@ struct HomeViewModel: HomeViewModelType, HomeViewModelInputs, HomeViewModelOutpu
             .map { _ in () }
             .bind(to: hideLoadingRelay)
             .disposed(by: disposeBag)
-
     }
 
     private let viewDidLoadRelay = PublishRelay<Void>()

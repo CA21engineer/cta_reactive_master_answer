@@ -69,15 +69,22 @@ final class HomeViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
 
-        viewModel.output.showLoading
-            .emit(to: Binder(self) { me, _ in
-                me.showIndicator()
-            }).disposed(by: disposeBag)
-
-        viewModel.output.hideLoading
-            .emit(to: Binder(self) { me, _ in
-                me.hideIndicator()
-            }).disposed(by: disposeBag)
+        viewModel.output.loadingStatus
+            .asObservable()
+            .bind(to: Binder(self) { me, status in
+                switch status {
+                case .initial:
+                    break
+                case .loading:
+                    me.showIndicator()
+                case .loadSuccess:
+                    me.hideIndicator()
+                case .loadFailed:
+                    me.hideIndicator()
+                    // error popupの表示とか
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 

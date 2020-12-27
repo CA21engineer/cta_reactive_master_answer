@@ -10,10 +10,14 @@ import UIKit
 extension UIViewController {
     func showIndicator() {
         let indicator = UIActivityIndicatorView(style: .large)
-        indicator.center = view.center
-        indicator.hidesWhenStopped = true
-
         view.addSubview(indicator)
+
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            indicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
+        indicator.hidesWhenStopped = true
 
         indicator.startAnimating()
     }

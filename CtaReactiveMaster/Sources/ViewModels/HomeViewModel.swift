@@ -42,13 +42,15 @@ struct HomeViewModel: HomeViewModelType, HomeViewModelInputs, HomeViewModelOutpu
         self.showLoading = showLoadingRelay.asSignal()
         self.hideLoading = hideLoadingRelay.asSignal()
 
+        viewDidLoadRelay.asObservable()
+            .map { _ in LoadingStatus.loading }
+            .bind(to: loadingStatus)
+            .disposed(by: disposeBag)
+
         let fetched = Observable.merge([
             viewDidLoadRelay.asObservable(),
             pullToRefreshRelay.asObservable(),
         ])
-        .do(onNext: { [self] _ in
-            loadingStatus.accept(.loading)
-        })
         .flatMap { dependency.repository.fetch().asObservable().materialize() }
         .share()
 

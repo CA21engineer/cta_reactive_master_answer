@@ -26,6 +26,7 @@ extension UIViewController {
         view.subviews.forEach { subview in
             if let indicatorView = subview as? UIActivityIndicatorView {
                 indicatorView.stopAnimating()
+                indicatorView.removeFromSuperview()
             }
         }
     }

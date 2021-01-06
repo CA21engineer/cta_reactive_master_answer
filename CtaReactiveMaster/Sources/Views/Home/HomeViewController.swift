@@ -61,11 +61,8 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
 
         viewModel.output.articles.asObservable()
-            .bind(to: Binder(self) { me, _ in
-                if me.refreshControl.isRefreshing {
-                    me.refreshControl.endRefreshing()
-                }
-            })
+            .map { _ in () }
+            .bind(to: refreshControl.rx.endRefreshing)
             .disposed(by: disposeBag)
 
         viewModel.output.loadingStatus

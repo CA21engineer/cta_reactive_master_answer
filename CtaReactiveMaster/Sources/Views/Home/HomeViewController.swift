@@ -11,7 +11,6 @@ import RxCocoa
 import SafariServices
 
 final class HomeViewController: UIViewController {
-
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.refreshControl = refreshControl
@@ -40,13 +39,10 @@ final class HomeViewController: UIViewController {
     }
 
     private func bindToViewModel() {
-        refreshControl
-            .rx
-            .controlEvent(.valueChanged)
-            .asDriver()
-            .drive { [weak self] _ in
-                self?.viewModel.input.pullToRefresh()
-            }
+        refreshControl.rx.controlEvent(.valueChanged)
+            .bind(to: Binder(self) { me, _ in
+                me.viewModel.input.pullToRefresh()
+            })
             .disposed(by: disposeBag)
 
         tableView.rx.modelSelected(Article.self)

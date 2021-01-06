@@ -39,9 +39,9 @@ final class ArticleCell: UITableViewCell {
         backgroundColor = .clear
     }
 
-    func setup(article: Article) {
-        articleImageView.loadImage(from: article.urlToImage)
-        titleLabel.text = article.title
-        descriptionLabel.text = article.description
+    func configure(item: Article) {
+        articleImageView.loadImage(from: item.urlToImage)
+        titleLabel.text = item.title
+        descriptionLabel.text = item.description
     }
 }

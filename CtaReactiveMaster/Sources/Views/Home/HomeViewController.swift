@@ -56,7 +56,7 @@ final class HomeViewController: UIViewController {
 
         viewModel.output.articles.asObservable()
             .bind(to: tableView.rx.items(cellIdentifier: ArticleCell.className, cellType: ArticleCell.self))  { _, item, cell in
-                cell.setup(article: item)
+                cell.configure(item: item)
             }
             .disposed(by: disposeBag)
 

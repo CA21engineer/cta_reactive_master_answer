@@ -20,14 +20,11 @@ protocol HomeViewModelInputs {
 
 protocol HomeViewModelOutputs {
     var articles: Driver<[Article]> { get }
-    var showLoading: Signal<Void> { get }
-    var hideLoading: Signal<Void> { get }
+    var loadingStatus: Driver<LoadingStatus> { get }
 }
 
 struct HomeViewModel: HomeViewModelType, HomeViewModelInputs, HomeViewModelOutputs {
     private let disposeBag = DisposeBag()
-
-    private let loadingStatus = BehaviorRelay<LoadingStatus>(value: .initial)
 
     struct Dependency {
         let repository: NewsRepository
@@ -39,12 +36,11 @@ struct HomeViewModel: HomeViewModelType, HomeViewModelInputs, HomeViewModelOutpu
 
     init(dependency: Dependency) {
         self.articles = articlesRelay.asDriver()
-        self.showLoading = showLoadingRelay.asSignal()
-        self.hideLoading = hideLoadingRelay.asSignal()
+        self.loadingStatus = loadingStatusRelay.asDriver()
 
         viewDidLoadRelay.asObservable()
             .map { _ in LoadingStatus.loading }
-            .bind(to: loadingStatus)
+            .bind(to: loadingStatusRelay)
             .disposed(by: disposeBag)
 
         let fetched = Observable.merge([
@@ -57,7 +53,7 @@ struct HomeViewModel: HomeViewModelType, HomeViewModelInputs, HomeViewModelOutpu
         fetched
             .flatMap { $0.element.map(Observable.just) ?? .empty() }
             .do(onNext: { [self] _ in
-                loadingStatus.accept(.loadSuccess)
+                loadingStatusRelay.accept(.loadSuccess)
             })
             .map { $0.articles }
             .bind(to: articlesRelay)
@@ -66,21 +62,9 @@ struct HomeViewModel: HomeViewModelType, HomeViewModelInputs, HomeViewModelOutpu
         fetched
             .flatMap { $0.error.map(Observable.just) ?? .empty() }
             .do(onNext: { [self] error in
-                loadingStatus.accept(.loadFailed)
+                loadingStatusRelay.accept(.loadFailed(error))
             })
             .subscribe()
-            .disposed(by: disposeBag)
-
-        loadingStatus.asObservable()
-            .filter { $0 == .loading }
-            .map { _ in () }
-            .bind(to: showLoadingRelay)
-            .disposed(by: disposeBag)
-
-        loadingStatus.asObservable()
-            .filter { $0 == .loadSuccess || $0 == .loadFailed }
-            .map { _ in () }
-            .bind(to: hideLoadingRelay)
             .disposed(by: disposeBag)
     }
 
@@ -97,11 +81,8 @@ struct HomeViewModel: HomeViewModelType, HomeViewModelInputs, HomeViewModelOutpu
     private let articlesRelay = BehaviorRelay<[Article]>(value: [])
     let articles: Driver<[Article]>
 
-    private let showLoadingRelay = PublishRelay<Void>()
-    let showLoading: Signal<Void>
-
-    private let hideLoadingRelay = PublishRelay<Void>()
-    let hideLoading: Signal<Void>
+    private let loadingStatusRelay = BehaviorRelay<LoadingStatus>(value: .initial)
+    let loadingStatus: Driver<LoadingStatus>
 
     var input: HomeViewModelInputs { self }
     var output: HomeViewModelOutputs { self }

@@ -55,29 +55,33 @@ final class HomeViewController: UIViewController {
                 guard let url = article.webURL else { return }
                 let viewController = SFSafariViewController(url: url)
                 me.present(viewController, animated: true)
-            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
 
         viewModel.output.articles.asObservable()
             .bind(to: tableView.rx.items(cellIdentifier: ArticleCell.className, cellType: ArticleCell.self))  { index, item, cell in
                 cell.setup(article: item)
-            }.disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
 
         viewModel.output.articles.asObservable()
             .bind(to: Binder(self) { me, _ in
                 if me.refreshControl.isRefreshing {
                     me.refreshControl.endRefreshing()
                 }
-            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
 
-        viewModel.output.showLoading
-            .emit(to: Binder(self) { me, _ in
-                me.showIndicator()
-            }).disposed(by: disposeBag)
-
-        viewModel.output.hideLoading
-            .emit(to: Binder(self) { me, _ in
-                me.hideIndicator()
-            }).disposed(by: disposeBag)
+        viewModel.output.loadingStatus
+            .drive(Binder(self) { me, status in
+                switch status {
+                case .loading:
+                    me.showIndicator()
+                case .initial, .loadSuccess, .loadFailed:
+                    me.hideIndicator()
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 

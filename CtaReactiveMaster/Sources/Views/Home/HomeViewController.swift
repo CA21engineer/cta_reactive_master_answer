@@ -59,7 +59,7 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
 
         viewModel.output.articles.asObservable()
-            .bind(to: tableView.rx.items(cellIdentifier: ArticleCell.className, cellType: ArticleCell.self))  { index, item, cell in
+            .bind(to: tableView.rx.items(cellIdentifier: ArticleCell.className, cellType: ArticleCell.self))  { _, item, cell in
                 cell.setup(article: item)
             }
             .disposed(by: disposeBag)

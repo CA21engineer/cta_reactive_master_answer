@@ -5,8 +5,8 @@
 //  Created by 伊藤凌也 on 2020/12/26.
 //
 
-import RxSwift
 import RxCocoa
+import RxSwift
 
 protocol HomeViewModelType {
     var input: HomeViewModelInputs { get }

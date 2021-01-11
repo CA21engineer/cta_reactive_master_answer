@@ -13,13 +13,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-
-        let window = UIWindow(frame: UIScreen.main.bounds)
         let repository = NewsRepository()
-        window.rootViewController = HomeViewController(repository: repository)
-        self.window = window
-        self.window?.makeKeyAndVisible()
+        window?.rootViewController = HomeViewController(repository: repository)
+        window?.makeKeyAndVisible()
 
         return true
     }
